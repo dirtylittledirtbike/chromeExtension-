@@ -2,6 +2,7 @@ const toneanalyzerapikey = "kHNqXdZWxluLI3upgclMCRNapSmUWQaB95mAlZeIcCKZ";
 
 const translatorapikey = "taQJn2kCUvtbiWl8GFGRNVC_r39txDSIArNR2lCcEiew";
 //const toneanalyzerapikey = "bLF21kTqxCgtS4mYrNeEQETUUtdbGbiuEiu36U0JUwva";
+var txt = "The score that is returned lies in the range of 0 to 1. A score less than 0.5 indicates that the tone is unlikely to be perceived in the content, a score greater than 0.75 indicates a high likelihood that the tone is perceived.";
 
 function getAPIKeyV2(apikey){
   return new Promise(function(resolve, reject){
@@ -50,6 +51,16 @@ function getAPIKeyV2(apikey){
  var obj = JSON.parse(result1);
 
  var fulltone  = obj.document_tone.tone_categories;
+
+ var analyticalTone = obj.document_tone.tone_categories[1].tones[0].tone_name;
+ var analyticalScore = obj.document_tone.tone_categories[1].tones[0].score;
+
+ var confidentTone = obj.document_tone.tone_categories[1].tones[1].tone_name;
+ var confidentScore = obj.document_tone.tone_categories[1].tones[1].score;
+
+ var tentativeTone = obj.document_tone.tone_categories[1].tones[2].tone_name;
+ var tentativeScore = obj.document_tone.tone_categories[1].tones[2].score;
+
  var angerTone = obj.document_tone.tone_categories[0].tones[0].tone_name;
  var angerScore = obj.document_tone.tone_categories[0].tones[0].score;
 
@@ -65,8 +76,9 @@ function getAPIKeyV2(apikey){
  var sadnessTone = obj.document_tone.tone_categories[0].tones[4].tone_name;
  var sadnessScore = obj.document_tone.tone_categories[0].tones[4].score;
 
-  alert(angerTone  + "=  " + angerScore*100 + " %" + ";" + "\n" +  disgustTone + "= "  + disgustScore*100  + " %" + "\n" + fearTone + "= " + fearScore*100 + " %" + "\n" + joyTone + "= " + joyScore*100 + " %" + "\n" + sadnessTone  + "= " + sadnessScore*100 + " %");
-//anger fear joy sadness analytical confident tenative
+
+  alert("Linguistic-Tone Confidence Rating:" + "\n" + analyticalTone  + "=  " + analyticalScore + "\n" + confidentTone  + "=  " + confidentScore + "\n" + tentativeTone  + "=  " + tentativeScore + "\n" + "\n" + "Emotive-Tone Confidence Rating:" + "\n" + angerTone  + "=  " + angerScore + "\n" +  disgustTone + "= "  + disgustScore + "\n" + fearTone + "= " + fearScore + "\n" + joyTone + "= " + joyScore + "\n" + sadnessTone  + "= " + sadnessScore + "\n" + "\n" + txt);
+//anger fear joy sadness analytical confident tenative//tentativeTone  + "=  " + tentativeScore*100 + " %" + ";" + "\n" +
      }
  }
  })
@@ -98,7 +110,7 @@ function Translator(word, lang, langname) {
  xmlRequest.onreadystatechange = function() {
      if(xmlRequest.readyState ==4 && xmlRequest.status==200){
          var translatedtext = JSON.parse(xmlRequest.responseText);
-         alert("Translated to  " + langname + "\n" + JSON.stringify(translatedtext.translations));
+         alert("Translated to " + langname + "\n" + JSON.stringify(translatedtext.translations));
      }
  }
 
@@ -119,15 +131,15 @@ function generalTranslator(word) {
   //      Translator(word, 'ar', 'Arabic');
   //      return;
   //  }
-  //  if (childname == 'child3') {
-  //      Translator(word, 'fr', 'French');
-  //      return;
-  //  }
+    if (childname == 'child2') {
+        Translator(word, 'fr', 'French');
+        return;
+    }
   //  if (childname == 'child4') {
     //    Translator(word, 'pt', 'Portuguese');
     //    return;
   //  }
-    if (childname == 'child2') {
+    if (childname == 'child3') {
         Translator(word, 'de', 'German');
         return;
     }
@@ -155,13 +167,13 @@ chrome.contextMenus.create({
   //  onclick: generalTranslator
 //});
 
-//chrome.contextMenus.create({
-  //  title: "Translate to French",
-  //  parentId: "parent",
-  //  id: 'child3',
-  //  contexts: ["selection"],
-    //onclick: generalTranslator
-//});
+chrome.contextMenus.create({
+    title: "Translate to French",
+    parentId: "parent",
+    id: 'child2',
+    contexts: ["selection"],
+    onclick: generalTranslator
+});
 
 //chrome.contextMenus.create({
 //    title: "Translate to Portuguese",
@@ -174,7 +186,7 @@ chrome.contextMenus.create({
 chrome.contextMenus.create({
     title: "Translate to German",
     parentId: "parent",
-    id: 'child2',
+    id: 'child3',
     contexts: ["selection"],
     onclick: generalTranslator
 });
@@ -182,7 +194,7 @@ chrome.contextMenus.create({
 chrome.contextMenus.create({
     title: "Tone Analyzer",
     parentId: "parent",
-    id: 'child3',
+    id: 'child4',
     contexts: ["selection"],
     onclick: callToneAnalyzer
 });
