@@ -6,7 +6,7 @@
     "icons": {
         "128": "ibmwatson.png"
     },
-    "author": "Shankar Venkatachalam1/India/IBM",
+    "author": "Collins Westnedge, cred: Shankar Venkatachalam1/India/IBM",
     "background": {
         "scripts": ["contentscript.js"]
     },

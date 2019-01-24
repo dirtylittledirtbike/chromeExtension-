@@ -61,17 +61,17 @@ function getAPIKeyV2(apikey){
  var tentativeTone = obj.document_tone.tone_categories[1].tones[2].tone_name;
  var tentativeScore = obj.document_tone.tone_categories[1].tones[2].score;
 
- var opennessTone = obj.document_tone.tone_categories[2].tones[0].tone_name;
- var opennessScore = obj.document_tone.tone_categories[2].tones[0].score;
+ //var opennessTone = obj.document_tone.tone_categories[2].tones[0].tone_name;
+ //var opennessScore = obj.document_tone.tone_categories[2].tones[0].score;
 
- var conscientiousnessTone = obj.document_tone.tone_categories[2].tones[1].tone_name;
- var conscientiousnessScore = obj.document_tone.tone_categories[2].tones[1].score;
+// var conscientiousnessTone = obj.document_tone.tone_categories[2].tones[1].tone_name;
+// var conscientiousnessScore = obj.document_tone.tone_categories[2].tones[1].score;
 
- var extraversionTone = obj.document_tone.tone_categories[2].tones[2].tone_name;
- var extraversionScore = obj.document_tone.tone_categories[2].tones[2].score;
+// var extraversionTone = obj.document_tone.tone_categories[2].tones[2].tone_name;
+ //var extraversionScore = obj.document_tone.tone_categories[2].tones[2].score;
 
- var agreeablenessTone = obj.document_tone.tone_categories[2].tones[3].tone_name;
- var agreeablenessScore = obj.document_tone.tone_categories[2].tones[3].score;
+ //var agreeablenessTone = obj.document_tone.tone_categories[2].tones[3].tone_name;
+ //var agreeablenessScore = obj.document_tone.tone_categories[2].tones[3].score;
 
  var angerTone = obj.document_tone.tone_categories[0].tones[0].tone_name;
  var angerScore = obj.document_tone.tone_categories[0].tones[0].score;
@@ -89,7 +89,7 @@ function getAPIKeyV2(apikey){
  var sadnessScore = obj.document_tone.tone_categories[0].tones[4].score;
 
 
-  alert("Linguistic-Tone Scores:" + "\n" + analyticalTone  + "=  " + analyticalScore + "\n" + confidentTone  + "=  " + confidentScore + "\n" + tentativeTone  + "=  " + tentativeScore + "\n" + "\n" + "Social-Tone Scores:" + "\n" + opennessTone  + "=  " + opennessScore + "\n" + conscientiousnessTone  + "=  " + conscientiousnessScore + "\n" + extraversionTone  + "=  " + extraversionScore + "\n" + agreeablenessTone  + "=  " + agreeablenessScore + "\n" + "\n" + "Emotive-Tone Scores:" + "\n" + angerTone  + "=  " + angerScore + "\n" +  disgustTone + "= "  + disgustScore + "\n" + fearTone + "= " + fearScore + "\n" + joyTone + "= " + joyScore + "\n" + sadnessTone  + "= " + sadnessScore + "\n" + "\n" + txt);
+  alert("Linguistic-Tone Scores:" + "\n" + analyticalTone  + "=  " + analyticalScore + "\n" + confidentTone  + "=  " + confidentScore + "\n" + tentativeTone  + "=  " + tentativeScore + "\n" + "\n" + "Emotive-Tone Scores:" + "\n" + angerTone  + "=  " + angerScore + "\n" +  disgustTone + "= "  + disgustScore + "\n" + fearTone + "= " + fearScore + "\n" + joyTone + "= " + joyScore + "\n" + sadnessTone  + "= " + sadnessScore + "\n" + "\n" + txt);
   //agreeablenessTone  + "=  " + agreeablenessScore + "\n" +
      }
  }
