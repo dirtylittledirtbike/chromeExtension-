@@ -163,6 +163,72 @@ var Translator2 = function (word, lang, langname) {
 })
 }
 
+var Translator3 = function (word, lang, langname) {
+    var textContent = String(word.selectionText);
+
+    var accesstoken = getAPIKeyV2(translatorapikey);
+
+    accesstoken.then(function(result){
+     var inputContent = textContent.replace(/%20/g, " ");
+     var xmlRequest = new XMLHttpRequest();
+
+     if(window.XMLHttpRequest){
+
+     xmlRequest.open("POST", "https://gateway.watsonplatform.net/language-translator/api/v3/translate?version=2018-05-01")
+     xmlRequest.setRequestHeader("Authorization", "Bearer "+ result);
+     xmlRequest.setRequestHeader("Content-type", "application/json");
+     xmlRequest.setRequestHeader("Accept", "application/json");
+     var data = {
+         "text": inputContent,
+         "source": "es",
+         "target": String(lang)
+     }
+     xmlRequest.send(JSON.stringify(data));
+
+ xmlRequest.onreadystatechange = function() {
+     if(xmlRequest.readyState ==4 && xmlRequest.status==200){
+         var translatedtext = JSON.parse(xmlRequest.responseText);
+         alert("Translated to " + langname + "\n" + JSON.stringify(translatedtext.translations));
+     }
+ }
+
+    }
+})
+}
+
+var Translator4 = function (word, lang, langname) {
+    var textContent = String(word.selectionText);
+
+    var accesstoken = getAPIKeyV2(translatorapikey);
+
+    accesstoken.then(function(result){
+     var inputContent = textContent.replace(/%20/g, " ");
+     var xmlRequest = new XMLHttpRequest();
+
+     if(window.XMLHttpRequest){
+
+     xmlRequest.open("POST", "https://gateway.watsonplatform.net/language-translator/api/v3/translate?version=2018-05-01")
+     xmlRequest.setRequestHeader("Authorization", "Bearer "+ result);
+     xmlRequest.setRequestHeader("Content-type", "application/json");
+     xmlRequest.setRequestHeader("Accept", "application/json");
+     var data = {
+         "text": inputContent,
+         "source": "de",
+         "target": String(lang)
+     }
+     xmlRequest.send(JSON.stringify(data));
+
+ xmlRequest.onreadystatechange = function() {
+     if(xmlRequest.readyState ==4 && xmlRequest.status==200){
+         var translatedtext = JSON.parse(xmlRequest.responseText);
+         alert("Translated to " + langname + "\n" + JSON.stringify(translatedtext.translations));
+     }
+ }
+
+    }
+})
+}
+
 
 function generalTranslator(word) {
 
@@ -191,12 +257,34 @@ function generalTranslator(word) {
 var generalTranslator2 = function(word) {
   var childname = word.menuItemId;
 
-  if (childname == 'child5') {
+  if (childname == 'child6') {
       Translator2(word, 'en', 'English');
       return;
   }
 
 }
+
+var generalTranslator3 = function(word) {
+  var childname = word.menuItemId;
+
+  if (childname == 'child5') {
+      Translator3(word, 'en', 'English');
+      return;
+  }
+
+}
+
+var generalTranslator4 = function(word) {
+  var childname = word.menuItemId;
+
+  if (childname == 'child7') {
+      Translator4(word, 'en', 'English');
+      return;
+  }
+
+}
+
+
 
 chrome.contextMenus.create({
     title: "IBM Watson API V1",
@@ -237,12 +325,29 @@ chrome.contextMenus.create({
     onclick: generalTranslator
 });
 
+
 chrome.contextMenus.create({
-    title: "French to English",
+    title: "Translate Spanish to English",
     parentId: "parent",
-    id: 'child5',
+    id: "child5",
+    contexts: ["selection"],
+    onclick: generalTranslator3
+});
+
+chrome.contextMenus.create({
+    title: "Translate French to English",
+    parentId: "parent",
+    id: 'child6',
     contexts: ["selection"],
     onclick: generalTranslator2
+});
+
+chrome.contextMenus.create({
+    title: "Translate German to English",
+    parentId: "parent",
+    id: "child7",
+    contexts: ["selection"],
+    onclick: generalTranslator4
 });
 
 chrome.contextMenus.create({
