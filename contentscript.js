@@ -130,6 +130,39 @@ function Translator(word, lang, langname) {
 })
 }
 
+var Translator2 = function (word, lang, langname) {
+    var textContent = String(word.selectionText);
+
+    var accesstoken = getAPIKeyV2(translatorapikey);
+
+    accesstoken.then(function(result){
+     var inputContent = textContent.replace(/%20/g, " ");
+     var xmlRequest = new XMLHttpRequest();
+
+     if(window.XMLHttpRequest){
+
+     xmlRequest.open("POST", "https://gateway.watsonplatform.net/language-translator/api/v3/translate?version=2018-05-01")
+     xmlRequest.setRequestHeader("Authorization", "Bearer "+ result);
+     xmlRequest.setRequestHeader("Content-type", "application/json");
+     xmlRequest.setRequestHeader("Accept", "application/json");
+     var data = {
+         "text": inputContent,
+         "source": "fr",
+         "target": String(lang)
+     }
+     xmlRequest.send(JSON.stringify(data));
+
+ xmlRequest.onreadystatechange = function() {
+     if(xmlRequest.readyState ==4 && xmlRequest.status==200){
+         var translatedtext = JSON.parse(xmlRequest.responseText);
+         alert("Translated to " + langname + "\n" + JSON.stringify(translatedtext.translations));
+     }
+ }
+
+    }
+})
+}
+
 
 function generalTranslator(word) {
 
@@ -140,21 +173,29 @@ function generalTranslator(word) {
         return;
     }
   //  if (childname == 'child2') {
-  //      Translator(word, 'ar', 'Arabic');
+  //      Translator(word, 'en', 'English');
   //      return;
   //  }
     if (childname == 'child2') {
         Translator(word, 'fr', 'French');
         return;
     }
-  //  if (childname == 'child4') {
-    //    Translator(word, 'pt', 'Portuguese');
-    //    return;
-  //  }
+
     if (childname == 'child3') {
         Translator(word, 'de', 'German');
         return;
     }
+
+}
+
+var generalTranslator2 = function(word) {
+  var childname = word.menuItemId;
+
+  if (childname == 'child5') {
+      Translator2(word, 'en', 'English');
+      return;
+  }
+
 }
 
 chrome.contextMenus.create({
@@ -187,13 +228,6 @@ chrome.contextMenus.create({
     onclick: generalTranslator
 });
 
-//chrome.contextMenus.create({
-//    title: "Translate to Portuguese",
-//    parentId: "parent",
-//    id: 'child4',
-  //  contexts: ["selection"],
-//    onclick: generalTranslator
-//});
 
 chrome.contextMenus.create({
     title: "Translate to German",
@@ -201,6 +235,14 @@ chrome.contextMenus.create({
     id: 'child3',
     contexts: ["selection"],
     onclick: generalTranslator
+});
+
+chrome.contextMenus.create({
+    title: "French to English",
+    parentId: "parent",
+    id: 'child5',
+    contexts: ["selection"],
+    onclick: generalTranslator2
 });
 
 chrome.contextMenus.create({
