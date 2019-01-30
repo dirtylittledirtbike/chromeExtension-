@@ -1,7 +1,7 @@
 const toneanalyzerapikey = "kHNqXdZWxluLI3upgclMCRNapSmUWQaB95mAlZeIcCKZ";
 
 const translatorapikey = "taQJn2kCUvtbiWl8GFGRNVC_r39txDSIArNR2lCcEiew";
-//const toneanalyzerapikey = "bLF21kTqxCgtS4mYrNeEQETUUtdbGbiuEiu36U0JUwva";
+
 var txt = "The score that is returned lies in the range of 0 to 1. A score less than 0.5 indicates that the tone is unlikely to be perceived in the content, a score greater than 0.75 indicates a high likelihood that the tone is perceived.";
 
 function getAPIKeyV2(apikey){
@@ -61,18 +61,6 @@ function getAPIKeyV2(apikey){
  var tentativeTone = obj.document_tone.tone_categories[1].tones[2].tone_name;
  var tentativeScore = obj.document_tone.tone_categories[1].tones[2].score;
 
- //var opennessTone = obj.document_tone.tone_categories[2].tones[0].tone_name;
- //var opennessScore = obj.document_tone.tone_categories[2].tones[0].score;
-
-// var conscientiousnessTone = obj.document_tone.tone_categories[2].tones[1].tone_name;
-// var conscientiousnessScore = obj.document_tone.tone_categories[2].tones[1].score;
-
-// var extraversionTone = obj.document_tone.tone_categories[2].tones[2].tone_name;
- //var extraversionScore = obj.document_tone.tone_categories[2].tones[2].score;
-
- //var agreeablenessTone = obj.document_tone.tone_categories[2].tones[3].tone_name;
- //var agreeablenessScore = obj.document_tone.tone_categories[2].tones[3].score;
-
  var angerTone = obj.document_tone.tone_categories[0].tones[0].tone_name;
  var angerScore = obj.document_tone.tone_categories[0].tones[0].score;
 
@@ -90,7 +78,7 @@ function getAPIKeyV2(apikey){
 
 
   alert("Linguistic-Tone Scores:" + "\n" + analyticalTone  + "=  " + analyticalScore + "\n" + confidentTone  + "=  " + confidentScore + "\n" + tentativeTone  + "=  " + tentativeScore + "\n" + "\n" + "Emotive-Tone Scores:" + "\n" + angerTone  + "=  " + angerScore + "\n" +  disgustTone + "= "  + disgustScore + "\n" + fearTone + "= " + fearScore + "\n" + joyTone + "= " + joyScore + "\n" + sadnessTone  + "= " + sadnessScore + "\n" + "\n" + txt);
-  //agreeablenessTone  + "=  " + agreeablenessScore + "\n" +
+
      }
  }
  })
@@ -147,7 +135,7 @@ var Translator2 = function (word, lang, langname) {
      xmlRequest.setRequestHeader("Accept", "application/json");
      var data = {
          "text": inputContent,
-         "source": "fr",
+         "source": "es",
          "target": String(lang)
      }
      xmlRequest.send(JSON.stringify(data));
@@ -180,7 +168,7 @@ var Translator3 = function (word, lang, langname) {
      xmlRequest.setRequestHeader("Accept", "application/json");
      var data = {
          "text": inputContent,
-         "source": "es",
+         "source": "fr",
          "target": String(lang)
      }
      xmlRequest.send(JSON.stringify(data));
@@ -238,10 +226,7 @@ function generalTranslator(word) {
         Translator(word, 'es', 'Spanish');
         return;
     }
-  //  if (childname == 'child2') {
-  //      Translator(word, 'en', 'English');
-  //      return;
-  //  }
+
     if (childname == 'child2') {
         Translator(word, 'fr', 'French');
         return;
@@ -257,7 +242,7 @@ function generalTranslator(word) {
 var generalTranslator2 = function(word) {
   var childname = word.menuItemId;
 
-  if (childname == 'child6') {
+  if (childname == 'child5') {
       Translator2(word, 'en', 'English');
       return;
   }
@@ -267,7 +252,7 @@ var generalTranslator2 = function(word) {
 var generalTranslator3 = function(word) {
   var childname = word.menuItemId;
 
-  if (childname == 'child5') {
+  if (childname == 'child6') {
       Translator3(word, 'en', 'English');
       return;
   }
@@ -285,7 +270,6 @@ var generalTranslator4 = function(word) {
 }
 
 
-
 chrome.contextMenus.create({
     title: "IBM Watson API V1",
     id: 'parent',
@@ -300,14 +284,6 @@ chrome.contextMenus.create({
    onclick: generalTranslator
 });
 
-//chrome.contextMenus.create({
-  //  title: "Translate to Arabic",
-  //  parentId: "parent",
-  //  id: "child2",
-  //  contexts: ["selection"],
-  //  onclick: generalTranslator
-//});
-
 chrome.contextMenus.create({
     title: "Translate to French",
     parentId: "parent",
@@ -315,7 +291,6 @@ chrome.contextMenus.create({
     contexts: ["selection"],
     onclick: generalTranslator
 });
-
 
 chrome.contextMenus.create({
     title: "Translate to German",
@@ -325,13 +300,12 @@ chrome.contextMenus.create({
     onclick: generalTranslator
 });
 
-
 chrome.contextMenus.create({
     title: "Translate 🇪🇸 to 🇬🇧",
     parentId: "parent",
     id: "child5",
     contexts: ["selection"],
-    onclick: generalTranslator3
+    onclick: generalTranslator2
 });
 
 chrome.contextMenus.create({
@@ -339,7 +313,7 @@ chrome.contextMenus.create({
     parentId: "parent",
     id: 'child6',
     contexts: ["selection"],
-    onclick: generalTranslator2
+    onclick: generalTranslator3
 });
 
 chrome.contextMenus.create({
