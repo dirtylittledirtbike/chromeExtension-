@@ -327,7 +327,7 @@ chrome.contextMenus.create({
 
 
 chrome.contextMenus.create({
-    title: "Translate Spanish to English",
+    title: "Translate 🇪🇸 to 🇬🇧",
     parentId: "parent",
     id: "child5",
     contexts: ["selection"],
@@ -335,7 +335,7 @@ chrome.contextMenus.create({
 });
 
 chrome.contextMenus.create({
-    title: "Translate French to English",
+    title: "Translate 🇫🇷 to 🇬🇧",
     parentId: "parent",
     id: 'child6',
     contexts: ["selection"],
@@ -343,7 +343,7 @@ chrome.contextMenus.create({
 });
 
 chrome.contextMenus.create({
-    title: "Translate German to English",
+    title: "Translate 🇩🇪 to 🇬🇧",
     parentId: "parent",
     id: "child7",
     contexts: ["selection"],
