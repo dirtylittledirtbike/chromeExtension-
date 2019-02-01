@@ -2,7 +2,7 @@ const toneanalyzerapikey = "kHNqXdZWxluLI3upgclMCRNapSmUWQaB95mAlZeIcCKZ";
 
 const translatorapikey = "taQJn2kCUvtbiWl8GFGRNVC_r39txDSIArNR2lCcEiew";
 
-var txt = "The score that is returned lies in the range of 0 to 1. A score less than 0.5 indicates that the tone is unlikely to be perceived in the content, a score greater than 0.75 indicates a high likelihood that the tone is perceived.";
+var txt = "The score that is returned lies in the range of 0.5 to 1. A score greater than 0.75 indicates a high likelihood that the tone is perceived in the content.";
 
 function getAPIKeyV2(apikey){
   return new Promise(function(resolve, reject){
@@ -37,7 +37,7 @@ function getAPIKeyV2(apikey){
  var toneanalyzertoken = getAPIKeyV2(toneanalyzerapikey);
  toneanalyzertoken.then(function(result){
  var inputContent = textContent.replace(/%20/g, "");
- xhr.open("GET", "https://gateway.watsonplatform.net/tone-analyzer/api/v3/tone?sentences=true&version=2016-05-19&text="+inputContent)
+ xhr.open("GET", "https://gateway.watsonplatform.net/tone-analyzer/api/v3/tone?sentences=false&version=2017-09-21&text="+inputContent)
  xhr.setRequestHeader("Authorization", "Bearer "+result);
  xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
  xhr.setRequestHeader("Accept", "application/json")
@@ -50,35 +50,36 @@ function getAPIKeyV2(apikey){
 
  var obj = JSON.parse(result1);
 
- var fulltone  = obj.document_tone.tone_categories;
+ var fulltone  = obj.document_tone.tones;
 
- var analyticalTone = obj.document_tone.tone_categories[1].tones[0].tone_name;
- var analyticalScore = obj.document_tone.tone_categories[1].tones[0].score;
+ //var analyticalTone = obj.document_tone.tone_categories[1].tones[0].tone_name;
+ //var analyticalScore = obj.document_tone.tone_categories[1].tones[0].score;
 
- var confidentTone = obj.document_tone.tone_categories[1].tones[1].tone_name;
- var confidentScore = obj.document_tone.tone_categories[1].tones[1].score;
+ //var confidentTone = obj.document_tone.tone_categories[1].tones[1].tone_name;
+ //var confidentScore = obj.document_tone.tone_categories[1].tones[1].score;
 
- var tentativeTone = obj.document_tone.tone_categories[1].tones[2].tone_name;
- var tentativeScore = obj.document_tone.tone_categories[1].tones[2].score;
+ //var tentativeTone = obj.document_tone.tone_categories[1].tones[2].tone_name;
+ //var tentativeScore = obj.document_tone.tone_categories[1].tones[2].score;
 
- var angerTone = obj.document_tone.tone_categories[0].tones[0].tone_name;
- var angerScore = obj.document_tone.tone_categories[0].tones[0].score;
+ //var angerTone = obj.document_tone.tone_categories[0].tones[0].tone_name;
+ //var angerScore = obj.document_tone.tone_categories[0].tones[0].score;
 
- var disgustTone = obj.document_tone.tone_categories[0].tones[1].tone_name;
- var disgustScore = obj.document_tone.tone_categories[0].tones[1].score;
+ //var disgustTone = obj.document_tone.tone_categories[0].tones[1].tone_name;
+ //var disgustScore = obj.document_tone.tone_categories[0].tones[1].score;
 
- var fearTone = obj.document_tone.tone_categories[0].tones[2].tone_name;
- var fearScore = obj.document_tone.tone_categories[0].tones[2].score;
+ //var fearTone = obj.document_tone.tone_categories[0].tones[2].tone_name;
+ //var fearScore = obj.document_tone.tone_categories[0].tones[2].score;
 
- var joyTone = obj.document_tone.tone_categories[0].tones[3].tone_name;
- var joyScore = obj.document_tone.tone_categories[0].tones[3].score;
+ //var joyTone = obj.document_tone.tone_categories[0].tones[3].tone_name;
+ //var joyScore = obj.document_tone.tone_categories[0].tones[3].score;
 
- var sadnessTone = obj.document_tone.tone_categories[0].tones[4].tone_name;
- var sadnessScore = obj.document_tone.tone_categories[0].tones[4].score;
+ //var sadnessTone = obj.document_tone.tone_categories[0].tones[4].tone_name;
+ //var sadnessScore = obj.document_tone.tone_categories[0].tones[4].score;
 
-
-  alert("Linguistic-Tone Scores:" + "\n" + analyticalTone  + "=  " + analyticalScore + "\n" + confidentTone  + "=  " + confidentScore + "\n" + tentativeTone  + "=  " + tentativeScore + "\n" + "\n" + "Emotive-Tone Scores:" + "\n" + angerTone  + "=  " + angerScore + "\n" +  disgustTone + "= "  + disgustScore + "\n" + fearTone + "= " + fearScore + "\n" + joyTone + "= " + joyScore + "\n" + sadnessTone  + "= " + sadnessScore + "\n" + "\n" + txt);
-
+var analysis = JSON.stringify(fulltone);
+var toneAlert = analysis.replace(/},{/g, "\n"+"\n");
+  //alert("Linguistic-Tone Scores:" + "\n" + analyticalTone  + "=  " + analyticalScore + "\n" + confidentTone  + "=  " + confidentScore + "\n" + tentativeTone  + "=  " + tentativeScore + "\n" + "\n" + "Emotive-Tone Scores:" + "\n" + angerTone  + "=  " + angerScore + "\n" +  disgustTone + "= "  + disgustScore + "\n" + fearTone + "= " + fearScore + "\n" + joyTone + "= " + joyScore + "\n" + sadnessTone  + "= " + sadnessScore + "\n" + "\n" + txt);
+  alert(toneAlert.replace(/,/g, "\n") + "\n" + "\n" + txt);
      }
  }
  })
