@@ -1,6 +1,6 @@
-const toneanalyzerapikey = "kHNqXdZWxluLI3upgclMCRNapSmUWQaB95mAlZeIcCKZ";
+const toneanalyzerapikey = "xxxxx";
 
-const translatorapikey = "taQJn2kCUvtbiWl8GFGRNVC_r39txDSIArNR2lCcEiew";
+const translatorapikey = "xxxxx";
 
 var txt = "The score that is returned lies in the range of 0.5 to 1. A score greater than 0.75 indicates a high likelihood that the tone is perceived in the content.";
 
