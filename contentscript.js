@@ -213,6 +213,7 @@ var Translator4 = function (word, lang, langname){
     var accesstoken = getAPIKeyV2(translatorapikey);
 
     accesstoken.then(function(result){
+      
          var inputContent = textContent.replace(/%20/g, " ");
          var xmlRequest = new XMLHttpRequest();
 
