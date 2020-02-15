@@ -116,11 +116,15 @@ function Translator(word, lang, langname){
              
              xmlRequest.send(JSON.stringify(data));
 
-             xmlRequest.onreadystatechange = function() {
+             xmlRequest.onreadystatechange = function(){
+               
                  if(xmlRequest.readyState ==4 && xmlRequest.status==200){
+                   
                      var translatedtext = JSON.parse(xmlRequest.responseText);
                      alert("Translated to " + langname + "\n" + JSON.stringify(translatedtext.translations));
+                   
                  }
+               
              }
 
         }
