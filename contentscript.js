@@ -45,7 +45,9 @@ var callToneAnalyzer = function (word){
          xhr.send();
 
          xhr.onreadystatechange = function(){
+           
              if(xhr.readyState == 4 && xhr.status==200){
+               
                  var result1 = xhr.responseText;
 
                  var obj = JSON.parse(result1);
@@ -82,7 +84,9 @@ var callToneAnalyzer = function (word){
                 alert(toneAlert.replace(/,/g, "\n") + "\n" + "\n" + txt);
                 
              }
+           
          }
+       
      });
 
 };
